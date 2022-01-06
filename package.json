@@ -8,9 +8,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^1.1.1",
+    "@chakra-ui/react": "^1.7.4",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "firebase": "^8.2.1",
+    "framer-motion": "^5.5.5",
+    "js-cookie": "^3.0.1",
     "next": "12.0.7",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
+    "react-paystack": "^3.0.5",
+    "sendchamp": "^1.0.8",
+    "sendchamp-sdk": "^1.0.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "8.6.0",
