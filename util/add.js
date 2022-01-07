@@ -1,27 +1,25 @@
 import {firestore} from "../lib/firebase";
 import Cookies from 'js-cookie';
- export  async function  Addd() {
+
+ export  async function  Addd({id}) {
   const userId= Cookies.get("qid")
     
     let tot=0;
-      
+   let counter= 0   
     
-    counte=counte+1;
-    const ref =await firestore.collection('cart').doc(userId).collection(user.shopname).doc(post.slug).update({
-      "quantity":counte,
-      "amount":post.price*counte,
+    counter=counter+1;
+    const ref =await firestore.collection('cartTest').doc(id).collection(user.shopname).doc(post.slug).update({
+      "quantity":counter,
+      "amount":post.price*counter,
   
     })
     console.log("added")
    
-  Cookie.set(post.slug,counte);
-  const val =parseInt(Cookie.get(post.slug));
   
-  tot+=val;
-  setcartItems(tot);
-  setitems(val)}
+ }
   
-   export async function Remove() {
+  
+   export async function Remove({id}) {
     const userId= Cookies.get("qid")
     let tot=0;
   

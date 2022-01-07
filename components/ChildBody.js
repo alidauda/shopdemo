@@ -8,8 +8,8 @@ export  function ChildBody({ p }) {
     const [counter,setcounter]= useState(0);
     
     return (
-        <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-            <Image src={p.imageUrl} alt={p.imageAlt} />
+        <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' height='450px'>
+            <Image src={p.imageUrl} alt={p.imageAlt} objectFit="cover" height="300px" />
 
             <Box p='2'>
 
@@ -20,32 +20,26 @@ export  function ChildBody({ p }) {
                     lineHeight='tight'
                     isTruncated
                 >
-                    SHAWAMA
+{p.title}
                 </Box>
 
                 <Box>
-                    {p.formattedPrice}
+                ₦{p.formattedPrice}
 
                 </Box>
 
                 <Box display='flex' mt='2' alignItems='center'>
 
                     <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-                        {set ? <>
-                            <ButtonGroup variant='outline' spacing='1'>
-                                <Button colorScheme='blue'>+</Button>
-                                <div>{counter}</div>
-                                <Button colorScheme='blue'>-</Button>
-                            </ButtonGroup>
-                        </> : <Button colorScheme='teal' variant='outline' isLoading={lod} onClick={()=>{
+                         <Button colorScheme='teal' variant='outline' isLoading={lod} onClick={()=>{
                             setlod(true)
-                            aDD().then(()=>{
+                            aDD({p}).then(()=>{
 setlod(false);
 setme(true);
                             })
                         }}>
                             ADD
-                        </Button>}
+                        </Button>
 
 
                     </Box>

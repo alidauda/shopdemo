@@ -1,13 +1,17 @@
 import {firestore} from "../lib/firebase";
 import Cookies from 'js-cookie';
-export async function aDD() {
+import { v4 as uuidv4 } from 'uuid';
+export async function aDD({p}) {
    
     if (!Cookies.get("qid")) {
         const id = uuidv4();
         Cookies.set("qid", id);
         
-        await firestore.collection("test").doc(id).set({
-            "asme": "done"
+        await firestore.collection("cartTest").doc(id).collection("cart").add({
+            "imageUrl": p.imageUrl,
+            "price":p.formattedPrice,
+            "title":p.title
+
         }).then(() => {
             
             console.log("mmmm");
@@ -16,8 +20,11 @@ export async function aDD() {
     } else {
         const value = Cookies.get("qid");
        
-        await firestore.collection("test").doc(value).set({
-            "asme": "done"
+        await firestore.collection("cartTest").doc(value).collection("cart").add({
+            "imageUrl": p.imageUrl,
+            "price":p.formattedPrice,
+            "title":p.title
+
         }).then(() => {
            
             console.log("me");
