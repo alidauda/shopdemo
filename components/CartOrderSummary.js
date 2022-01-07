@@ -16,14 +16,15 @@ import {
     useDisclosure,
     FormControl,
     FormLabel,
-    Input
+    Input,Box,
+    FormHelperText
   } from '@chakra-ui/react'
   import * as React from 'react'
   import { FaArrowRight } from 'react-icons/fa'
   import { useState } from "react";
   import { PaystackButton } from 'react-paystack'
   
-  
+  import { firestore, postToJSON } from "../lib/firebase";
   const OrderSummaryItem = (props) => {
     const { label, value, children } = props
     return (
@@ -42,7 +43,8 @@ import {
     const [number,setNumber]=useState("");
     const [adress,setAddress] = useState("");
     const [save, setSave]=useState(false);
-
+    const [isError,setIsError] = useState(false);
+    const [mes,setmes]=useState("")
     const componentProps = {
         email:"alidauda14@gmail.com",
         amount: parseInt((2000)+"00"),
@@ -54,6 +56,12 @@ import {
         publicKey:"pk_test_37335d37c9fb118d8a917de0a58a8efde1bb96c4",
         text: "Pay Now",
         onSuccess: () =>{
+          firestore.collection("orders").doc("test").set({
+            "number":`${number}`,
+            "items":"burger x2 SANDWITCH, shawama x2",
+            "adress":"sam owkraji street",
+            "price":"3000"
+          })
             alert("Thanks for doing business with us! Come back soon!!"),
             onClose()
             setSave(false);
@@ -93,17 +101,38 @@ import {
           <ModalHeader>Enter your details</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-           { save?<div>
-            <PaystackButton {...componentProps} />
-           </div>:
-           <><FormControl>
+           { save?  <Box
+              w={{
+                base: "full",
+                sm: "auto",
+              }}
+              flexShrink={0}
+     bg={"blue.300"}         
+    px="4"
+    py="1.5"
+    textAlign="center"
+    borderWidth="1px"
+    borderColor="whiteAlpha.400"
+    fontWeight="medium"
+    rounded="base"
+   
+
+            >
+            <PaystackButton {...componentProps}  variant="link"/>
+            </Box>:
+           <><FormControl isRequired isInvalid={isError}>
               <FormLabel>Phone Number</FormLabel>
               <Input  type="number" placeholder='Phone Number' onChange={(e =>{
                   setNumber(e.target.value)
               })}/>
+              <FormHelperText  color="red">
+          
+            {mes}
+        
+        </FormHelperText>
             </FormControl>
 
-            <FormControl mt={4}>
+            <FormControl mt={4} isRequired isInvalid={isError}>
               <FormLabel>Address</FormLabel>
               <Input placeholder='Address' type="text" />
             </FormControl>
@@ -118,7 +147,15 @@ onClose();
             }
                 }  colorScheme ="red">Cancel</Button>
             <Button colorScheme='whatsapp'  display={save?"none":"flex"}ml={3} onClick={(e)=>{
+
+              if(number.length<=10){
+setIsError(true);
+
+              }else{
+                setIsError(false)
                 setSave(true);
+              }
+                
             }}>
               continue
             </Button>
