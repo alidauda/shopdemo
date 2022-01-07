@@ -39,7 +39,7 @@ import {
     )
   }
   
-  export const CartOrderSummary = () => {
+  export const CartOrderSummary = ({total,con}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [number,setNumber]=useState("");
     const [adress,setAddress] = useState("");
@@ -48,7 +48,7 @@ import {
     const [mes,setmes]=useState("")
     const componentProps = {
         email:"alidauda14@gmail.com",
-        amount: parseInt((2000)+"00"),
+        amount: parseInt((total)+"00"),
         metadata: {
           
           phone:number
@@ -86,11 +86,11 @@ import {
               Total
             </Text>
             <Text fontSize="xl" fontWeight="extrabold">
-            ₦597
+            ₦{total}
             </Text>
           </Flex>
         </Stack>
-        <Button colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />} onClick={onOpen} >
+        <Button colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />} onClick={onOpen} isLoading={con}>
           Checkout
         </Button>
         <Modal

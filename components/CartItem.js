@@ -7,15 +7,12 @@ import { useState } from "react";
 
 export const CartItem = (props) => {
   const {
-    isGiftWrapping,
-    name,
+    
+    title,
     description,
-    quantity,
+    
     imageUrl,
-    currency,
-    price,
-    onChangeQuantity,
-    onClickDelete,
+    
   } = props
   const[item ,setItem]=useState("")
   return (
@@ -28,10 +25,10 @@ export const CartItem = (props) => {
       align="center"
     >
       <CartProductMeta
-        name={name}
+        name={title}
         description={description}
         image={imageUrl}
-        isGiftWrapping={isGiftWrapping}
+        
       />
 
       {/* Desktop
