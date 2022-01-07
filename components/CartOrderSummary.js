@@ -19,6 +19,7 @@ import {
     Input,Box,
     FormHelperText
   } from '@chakra-ui/react'
+  import { v4 as uuidv4 } from 'uuid';
   import * as React from 'react'
   import { FaArrowRight } from 'react-icons/fa'
   import { useState } from "react";
@@ -55,11 +56,12 @@ import {
         subaccount:"ACCT_q7qaqe5hqxhgn7s",
         publicKey:"pk_test_37335d37c9fb118d8a917de0a58a8efde1bb96c4",
         text: "Pay Now",
-        onSuccess: () =>{
-          firestore.collection("orders").doc("test").set({
+        onSuccess: async() =>{
+          const id=uuidv4();
+        await  firestore.collection("orders").doc(id).set({
             "number":`${number}`,
             "items":"burger x2 SANDWITCH, shawama x2",
-            "adress":"sam owkraji street",
+            "address":adress,
             "price":"3000"
           })
             alert("Thanks for doing business with us! Come back soon!!"),
@@ -134,7 +136,9 @@ import {
 
             <FormControl mt={4} isRequired isInvalid={isError}>
               <FormLabel>Address</FormLabel>
-              <Input placeholder='Address' type="text" />
+              <Input placeholder='Address' type="text"  onChange={(e)=>{
+                setAddress(e.target.value);
+              }}/>
             </FormControl>
             </>}
           </ModalBody>
